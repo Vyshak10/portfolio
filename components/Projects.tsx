@@ -1,83 +1,93 @@
-'use client'
+'use client';
 
-import { motion } from '@/components/Motion';
+import { motion } from 'framer-motion'; // unless you have a wrapper
 import { useState } from 'react';
-import { ExternalLink, Github, Smartphone, BarChart3, Database, Brain, Globe, TrendingUp, Code } from 'lucide-react'
+import { ExternalLink, Github, Smartphone, BarChart3, Database } from 'lucide-react';
+
+type Project = {
+  name: string;
+  icon: JSX.Element;
+  description: string;
+  status: string;
+  features: string[];
+  technologies: string[];
+  github?: string;
+  demo?: string;
+};
+
+type TabType = 'development' | 'data';
 
 const Projects = () => {
-  const [activeTab, setActiveTab] = useState('development');
+  const [activeTab, setActiveTab] = useState<TabType>('development');
 
-const developmentProjects = [
-  {
-    name: 'NEXT - Startup & Investor Ecosystem',
-    icon: <Smartphone />,
-    description: 'A powerful cross-platform Flutter app and Laravel backend connecting startups to investors.',
-    status: 'Featured',
-    features: [
-      'Real-time startup-investor matching',
-      'User-friendly onboarding & dashboard',
-      'Admin management with secure API',
-    ],
-    technologies: ['Flutter', 'Laravel', 'MySQL', 'Firebase'],
-    github: 'https://github.com/Vyshak10/next-flutter',
-    demo: 'https://next-app-lake-nu.vercel.app/',
-  },
-  {
-    name: 'SAIT Placement Portal',
-    icon: <BarChart3 />,
-    description: 'A recruitment platform for campus using React.js/Supabase.',
-    status: 'Featured',
-    features: [
-      'Automated job matching & alerts',
-      'Mock tests & resume management',
-      'Admin analytics dashboard',
-    ],
-    technologies: ['React.js', 'Supabase', 'Tailwind'],
-    github: 'https://github.com/Vyshak10/sait-placement-portal',
-    demo: 'https://sait-placement-portal.vercel.app/',
-  },
-  // ... more dev projects
-];
+  const developmentProjects: Project[] = [
+    {
+      name: 'NEXT - Startup & Investor Ecosystem',
+      icon: <Smartphone />,
+      description: 'A powerful cross-platform Flutter app and Laravel backend connecting startups to investors.',
+      status: 'Featured',
+      features: [
+        'Real-time startup-investor matching',
+        'User-friendly onboarding & dashboard',
+        'Admin management with secure API',
+      ],
+      technologies: ['Flutter', 'Laravel', 'MySQL', 'Firebase'],
+      github: 'https://github.com/Vyshak10/next-flutter',
+      demo: 'https://next-app-lake-nu.vercel.app/',
+    },
+    {
+      name: 'SAIT Placement Portal',
+      icon: <BarChart3 />,
+      description: 'A recruitment platform for campus using React.js/Supabase.',
+      status: 'Featured',
+      features: [
+        'Automated job matching & alerts',
+        'Mock tests & resume management',
+        'Admin analytics dashboard',
+      ],
+      technologies: ['React.js', 'Supabase', 'Tailwind'],
+      github: 'https://github.com/Vyshak10/sait-placement-portal',
+      demo: 'https://sait-placement-portal.vercel.app/',
+    },
+  ];
 
-const dataProjects = [
-  {
-    name: 'Blinkit Sales Dashboard',
-    icon: <BarChart3 />,
-    description: "Power BI dashboard analyzing $1.2M retail data for Blinkit, India's top quick-commerce platform.",
-    status: 'Power BI',
-    features: [
-      'Interactive sales drilldowns',
-      'Segment performance breakdowns',
-      'Key metrics: revenue, volume, rating',
-    ],
-    technologies: ['Power BI', 'DAX', 'Analytics'],
-    github: 'https://github.com/Vyshak10/Blinkit-Sales-Dashboard---Power-BI',
-    demo: '', // No public demo? Leave empty or use a screenshot URL
-  },
-  {
-    name: 'Road Accident Analysis',
-    icon: <Database />,
-    description: 'Power BI visual analysis for UK road safety trends – high-risk areas, vehicle types, time comparisons.',
-    status: 'Power BI',
-    features: [
-      'Geo-mapping with Bing Maps',
-      'Trend analysis & time filters',
-      'Urban vs rural segmentation',
-    ],
-    technologies: ['Power BI', 'DAX', 'Mapping'],
-    github: 'https://github.com/Vyshak10/Road-Accident-Analysis',
-    demo: '',
-  },
-  // ... more data/ML projects
-];
+  const dataProjects: Project[] = [
+    {
+      name: 'Blinkit Sales Dashboard',
+      icon: <BarChart3 />,
+      description:
+        "Power BI dashboard analyzing $1.2M retail data for Blinkit, India's top quick-commerce platform.",
+      status: 'Power BI',
+      features: [
+        'Interactive sales drilldowns',
+        'Segment performance breakdowns',
+        'Key metrics: revenue, volume, rating',
+      ],
+      technologies: ['Power BI', 'DAX', 'Analytics'],
+      github: 'https://github.com/Vyshak10/Blinkit-Sales-Dashboard---Power-BI',
+    },
+    {
+      name: 'Road Accident Analysis',
+      icon: <Database />,
+      description:
+        'Power BI visual analysis for UK road safety trends – high-risk areas, vehicle types, time comparisons.',
+      status: 'Power BI',
+      features: [
+        'Geo-mapping with Bing Maps',
+        'Trend analysis & time filters',
+        'Urban vs rural segmentation',
+      ],
+      technologies: ['Power BI', 'DAX', 'Mapping'],
+      github: 'https://github.com/Vyshak10/Road-Accident-Analysis',
+    },
+  ];
 
-
-  const projects = {
+  const projects: Record<TabType, Project[]> = {
     development: developmentProjects,
     data: dataProjects,
   };
 
-  const ProjectCard = ({ project, index }: any) => (
+  const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -94,12 +104,17 @@ const dataProjects = [
             <div>
               <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{project.name}</h4>
               {project.status && (
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  project.status === 'Featured' ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' :
-                  project.status === 'Power BI' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300' :
-                  project.status === 'Machine Learning' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300' :
-                  'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                }`}>
+                <span
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    project.status === 'Featured'
+                      ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300'
+                      : project.status === 'Power BI'
+                      ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300'
+                      : project.status === 'Machine Learning'
+                      ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300'
+                      : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                  }`}
+                >
                   {project.status}
                 </span>
               )}
@@ -113,7 +128,7 @@ const dataProjects = [
           <div className="mb-5">
             <h6 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Key Features:</h6>
             <ul className="space-y-2">
-              {project.features.slice(0, 3).map((feature: string, i: number) => (
+              {project.features.slice(0, 3).map((feature, i) => (
                 <li key={i} className="flex items-start text-sm text-gray-600 dark:text-gray-400">
                   <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
                   <span>{feature}</span>
@@ -128,8 +143,13 @@ const dataProjects = [
         <div className="mb-4">
           <h6 className="font-semibold text-gray-800 dark:text-gray-200 mb-2 text-sm">Technologies:</h6>
           <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech: string, i: number) => (
-              <span key={i} className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md text-xs font-medium">{tech}</span>
+            {project.technologies.map((tech, i) => (
+              <span
+                key={i}
+                className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md text-xs font-medium"
+              >
+                {tech}
+              </span>
             ))}
           </div>
         </div>
@@ -150,7 +170,7 @@ const dataProjects = [
             <a
               href={project.demo}
               target="_blank"
-              rel="noopener noreferrer" 
+              rel="noopener noreferrer"
               className="flex-1 text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-semibold flex items-center justify-center gap-2"
             >
               <ExternalLink size={16} />
@@ -160,55 +180,58 @@ const dataProjects = [
         </div>
       </div>
     </motion.div>
-  )
+  );
 
   return (
     <section id="projects" className="py-24 bg-gray-100 dark:bg-gray-900">
       <div className="container mx-auto px-4">
+        {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">Featured Projects</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
+            Featured Projects
+          </h2>
           <div className="w-24 h-1.5 bg-blue-500 mx-auto mb-6"></div>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             A collection of my work in development, data analysis, and machine learning.
           </p>
         </div>
 
+        {/* Tabs */}
         <div className="flex justify-center mb-12">
           <div className="flex space-x-2 bg-gray-200 dark:bg-gray-800 p-2 rounded-xl">
-            <button 
-              onClick={() => setActiveTab('development')} 
+            <button
+              onClick={() => setActiveTab('development')}
               className={`px-6 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                activeTab === 'development' ? 'bg-white dark:bg-gray-700 text-blue-500' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
-              }`}>
+                activeTab === 'development'
+                  ? 'bg-white dark:bg-gray-700 text-blue-500'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
+              }`}
+            >
               Development
             </button>
-            <button 
-              onClick={() => setActiveTab('data')} 
+            <button
+              onClick={() => setActiveTab('data')}
               className={`px-6 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                activeTab === 'data' ? 'bg-white dark:bg-gray-700 text-blue-500' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
-              }`}>
+                activeTab === 'data'
+                  ? 'bg-white dark:bg-gray-700 text-blue-500'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
+              }`}
+            >
               Data & ML
             </button>
           </div>
         </div>
 
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+        {/* Projects Grid */}
+        <motion.div key={activeTab} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects[activeTab].map((project, index) => (
-              <ProjectCard 
-                key={project.name} 
-                project={project} 
-                index={index}
-              />
+              <ProjectCard key={project.name} project={project} index={index} />
             ))}
           </div>
         </motion.div>
 
+        {/* View All */}
         <div className="text-center mt-16">
           <a
             href="https://github.com/Vyshak10"
@@ -222,7 +245,7 @@ const dataProjects = [
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Projects
+export default Projects;
