@@ -30,3 +30,8 @@ export default function RootLayout({
     </html>
   )
 }
+
+export {};
+import React from 'react';
+
+
