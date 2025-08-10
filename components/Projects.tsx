@@ -1,12 +1,12 @@
 'use client';
-
+import React from 'react';
 import { motion } from 'framer-motion'; // unless you have a wrapper
 import { useState } from 'react';
 import { ExternalLink, Github, Smartphone, BarChart3, Database } from 'lucide-react';
 
 type Project = {
   name: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
   description: string;
   status: string;
   features: string[];
