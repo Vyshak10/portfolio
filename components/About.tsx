@@ -1,8 +1,48 @@
 'use client'
 
-import { motion } from '@/components/Motion'
-import { BarChart3, Brain, Code, Database, Globe, GraduationCap, Smartphone, TrendingUp } from 'lucide-react'
-import { expertise, personalInfo, PersonalInfoItem } from './../data'
+import { motion } from 'framer-motion'
+import {
+  BarChart3,
+  Brain,
+  Code,
+  Database,
+  Globe,
+  GraduationCap,
+  Smartphone,
+  TrendingUp
+} from 'lucide-react'
+
+// You can update these as needed
+const personalInfo = [
+  { label: 'Name', value: 'Vyshak Krishna KS' },
+  { label: 'Email', value: 'vyshak9333@gmail.com' },
+  { label: 'Location', value: 'Kerala, India' },
+  { label: 'Profession', value: 'Flutter Developer & Data Analyst' },
+]
+
+// Inline expertise data: keep or edit as you wish
+const expertise = [
+  {
+    icon: Smartphone,
+    title: 'Flutter Development',
+    description: 'Cross-platform mobile applications built with Flutter & Dart for Android and iOS.'
+  },
+  {
+    icon: Globe,
+    title: 'Full-Stack Web Development',
+    description: 'Dynamic, responsive web apps using React, Next.js, Node.js, TypeScript, and Tailwind CSS.'
+  },
+  {
+    icon: Database,
+    title: 'Data Analytics',
+    description: 'Transforming raw data into interactive dashboards using Power BI, SQL, and DAX.'
+  },
+  {
+    icon: Brain,
+    title: 'Machine Learning & AI',
+    description: 'Building predictive models with Python, TensorFlow, scikit-learn, and Pandas.'
+  }
+]
 
 const About = () => {
   return (
