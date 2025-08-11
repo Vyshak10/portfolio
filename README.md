@@ -1,4 +1,5 @@
-# Vyshak Portfolio
+# Vyshak Portfolio 
+https://portfolio-eight-ochre-92.vercel.app/
 
 This is a personal portfolio project showcasing skills, experience, projects, and contact information. It is built using Next.js and styled with Tailwind CSS.
 
@@ -28,34 +29,3 @@ The project consists of the following key files and directories:
   - **Contact.tsx**: Component providing contact information or form.
   - **Footer.tsx**: Component including copyright information and additional links.
 
-## Setup Instructions
-
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
-
-2. Navigate to the project directory:
-   ```
-   cd vyshak-portfolio
-   ```
-
-3. Install the dependencies:
-   ```
-   npm install
-   ```
-
-4. Run the development server:
-   ```
-   npm run dev
-   ```
-
-5. Open your browser and go to `http://localhost:3000` to view the portfolio.
-
-## Usage
-
-Feel free to customize the components and styles to fit your personal branding. Update the content in the `components` directory to reflect your skills, experience, and projects.
-
-## License
-
-This project is open-source and available under the MIT License.
